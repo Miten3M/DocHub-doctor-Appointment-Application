@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "623175886109",
+    "project_id": "doc-hub-1e49f",
+    "storage_bucket": "doc-hub-1e49f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:623175886109:android:68744b8e4eae9960ceedf4",
+        "android_client_info": {
+          "package_name": "com.example.doc_hub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "623175886109-bbsc9fe6h90lqif7p79jv4r1tsi2sko7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyuDrOKCHOWS-GXDTvOAaJ009nHulou7g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "623175886109-bbsc9fe6h90lqif7p79jv4r1tsi2sko7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
