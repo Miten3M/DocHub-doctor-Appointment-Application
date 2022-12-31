@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:doc_hub/components/my_button.dart';
 import 'package:doc_hub/components/my_textfield.dart';
 import 'package:doc_hub/components/square_tile.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -161,14 +162,20 @@ class _LoginPageState extends State<LoginPage> {
                 // google + apple sign in buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     // google button
-                    SquareTile(imagePath: 'lib/images/google.png'),
+
+                    SquareTile(
+                        imagePath: 'lib/images/google.png',
+                        onTap:(){signInWithGoogle();} ,
+                    ),
 
                     SizedBox(width: 25),
 
                     // apple button
-                    SquareTile(imagePath: 'lib/images/apple.png')
+                    SquareTile(imagePath: 'lib/images/apple.png',
+                        onTap:(){},
+                    )
                   ],
                 ),
 
@@ -184,7 +191,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(width: 4),
                     GestureDetector(
-                        onTap: widget.onTap,
+                        onTap:
+                          widget.onTap,
+
                       child: const Text(
                         'Register now',
                         style: TextStyle(
@@ -201,5 +210,17 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  signInWithGoogle() async {
+    GoogleSignInAccount? googleUser= await GoogleSignIn().signIn();
+    GoogleSignInAuthentication? googleAuth=await googleUser?.authentication;
+    AuthCredential credential=GoogleAuthProvider.credential(
+      accessToken:googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+    UserCredential userCredential= await FirebaseAuth.instance.signInWithCredential(credential);
+    print(userCredential.user?.displayName);
+
   }
 }

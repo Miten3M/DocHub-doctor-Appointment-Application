@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
         ],
         title: Text("Doctor Booking Appoinment"),
       ),
-      body: Center(
+      body:Center(
           child: Text(
             "LOGGED IN AS: " + user.email!,
             style: TextStyle(fontSize: 20),

@@ -22,7 +22,7 @@ class MyDrawer extends StatelessWidget {
               child: UserAccountsDrawerHeader(
                 margin: EdgeInsets.zero,
               
-                accountName: Text("Your Dashboard"),
+                accountName: Text(user.displayName!),
                 accountEmail: Text(user.email!),
                 currentAccountPicture: CircleAvatar(
                   backgroundImage: NetworkImage(imagUrl),
