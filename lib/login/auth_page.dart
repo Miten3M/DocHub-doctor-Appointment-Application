@@ -1,3 +1,4 @@
+import 'package:doc_hub/login/phone.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'homepage.dart';
@@ -16,7 +17,6 @@ class AuthPage extends StatelessWidget {
           if (snapshot.hasData) {
             return HomePage();
           }
-
           // user is NOT logged in
           else {
             return LoginOrRegisterPage();

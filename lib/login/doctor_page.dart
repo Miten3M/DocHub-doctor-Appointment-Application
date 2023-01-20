@@ -3,19 +3,18 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:doc_hub/components/my_button.dart';
 import 'package:doc_hub/components/my_textfield.dart';
-import 'package:doc_hub/components/square_tile.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
-class LoginPage extends StatefulWidget {
+
+class DocterPage extends StatefulWidget {
   final Function()? onTap;
-  LoginPage({super.key,required this.onTap});
+  DocterPage({super.key,required this.onTap});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<DocterPage> createState() => _DocterPageState();
 
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _DocterPageState extends State<DocterPage> {
   // text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -70,24 +69,27 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 10),
 
-                Image.asset('lib/images/doctor.png', height: 200, width: 300),
-                // const Icon(
-                //   Icons.lock,
-                //   size: 100,
-                // ),
-                // welcome back, you've been missed!
-                Text(
-                  'Welcome To DocHub',
-                  style: TextStyle(
-                    color: Colors.blue[900],
-                    fontSize: 16,
-                  ),
+                Image.asset(
+                  'assets/pageimages/doctorpage.png',
+                  width: 400,
+                  height: 180,
                 ),
 
-                const SizedBox(height: 25),
-
+                SizedBox(
+                  height: 25,
+                ),
+                Text(
+                  'Hello ! Doctor',
+                  style: TextStyle(
+                    color: Colors.indigo[900],
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  height: 35,
+                ),
                 // username textfield
                 MyTextField(
                   controller: emailController,
@@ -130,72 +132,22 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 30),
 
                 // or continue with
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text(
-                          'Or continue with',
-                          style: TextStyle(color: Colors.grey[700]),
-                        ),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
 
-                const SizedBox(height: 25),
 
-                // google + apple sign in buttons
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // google button
-
-                    SquareTile(
-                        imagePath: 'lib/images/google.png',
-                        onTap:(){signInWithGoogle();} ,
-                    ),
-
-                    SizedBox(width: 25),
-
-                    // apple button
-                    SquareTile(imagePath: 'lib/images/apple.png',
-                        onTap:(){},
-                    )
-                  ],
-                ),
-
-                const SizedBox(height: 25),
-
-                // not a member? register now
+                const SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Not a member?',
+                      'For Client ',
                       style: TextStyle(color: Colors.grey[700]),
                     ),
                     const SizedBox(width: 4),
                     GestureDetector(
-                        onTap:
-                          widget.onTap,
-
+                      onTap:
+                      widget.onTap,
                       child: const Text(
-                        'Register now',
+                        'Click Here',
                         style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,
@@ -212,15 +164,4 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  signInWithGoogle() async {
-    GoogleSignInAccount? googleUser= await GoogleSignIn().signIn();
-    GoogleSignInAuthentication? googleAuth=await googleUser?.authentication;
-    AuthCredential credential=GoogleAuthProvider.credential(
-      accessToken:googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-    UserCredential userCredential= await FirebaseAuth.instance.signInWithCredential(credential);
-    print(userCredential.user?.displayName);
-
-  }
 }

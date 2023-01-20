@@ -1,7 +1,8 @@
+import 'package:doc_hub/login/doctor_page.dart';
+import 'package:doc_hub/login/phone.dart';
 import 'package:flutter/material.dart';
 
-import 'login_page.dart';
-import 'register_page.dart';
+
 
 class LoginOrRegisterPage extends StatefulWidget {
   const LoginOrRegisterPage({super.key});
@@ -24,11 +25,11 @@ class _LoginOrRegisterPageState extends State<LoginOrRegisterPage> {
   @override
   Widget build(BuildContext context) {
     if (showLoginPage) {
-      return LoginPage(
+      return MyPhone(
         onTap: togglePages,
       );
     } else {
-      return RegisterPage(
+      return DocterPage(
         onTap: togglePages,
       );
     }

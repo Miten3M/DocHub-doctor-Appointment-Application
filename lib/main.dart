@@ -1,8 +1,14 @@
-import 'package:doc_hub/pages/auth_page.dart';
+import 'package:doc_hub/login/aboutUs.dart';
+import 'package:doc_hub/login/auth_page.dart';
+import 'package:doc_hub/login/homepage.dart';
+import 'package:doc_hub/login/phone.dart';
+import 'package:doc_hub/login//verify.dart';
+import 'package:doc_hub/login/profile_screen.dart';
+import 'package:doc_hub/widges/themes.dart';
 import 'package:flutter/material.dart';
-import 'pages/login_page.dart';
+
 import 'package:firebase_core/firebase_core.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
 
 
 Future<void> main() async {
@@ -16,15 +22,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      themeMode: ThemeMode.light,
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        fontFamily: GoogleFonts.lato().fontFamily,
-
-      ),
+    return  GetMaterialApp(
+      theme: MyTheme.lightTheme(context),
+      // debugShowCheckedModeBanner: false,
+      darkTheme: MyTheme.darkTheme(context),
+      // home: MyPhone(),
+      initialRoute: '/',
       debugShowCheckedModeBanner: false,
-      home: AuthPage(),
+      routes: {
+        'phone': (context) => MyPhone(),
+        'verify': (context) => MyVerify(),
+        'home':(context)=>HomePage(),
+        '/':(context)=>AuthPage()
+      },
     );
   }
 }
