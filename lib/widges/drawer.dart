@@ -1,6 +1,10 @@
+import 'package:doc_hub/contants/colors.dart';
+import 'package:doc_hub/login/homepage.dart';
+import 'package:doc_hub/profile/profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 
 class MyDrawer extends StatelessWidget {
@@ -19,7 +23,7 @@ class MyDrawer extends StatelessWidget {
         "https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?w=2000";
     return Drawer(
       child: Container(
-        color: Colors.deepPurple[600],
+        color: cPrimaryColor,
         child: InkWell(
 
           child: ListView(
@@ -41,6 +45,7 @@ class MyDrawer extends StatelessWidget {
                 ),
               ),
               ListTile(
+                onTap: ()=>Get.to(()=>HomePage()),
                 leading: Icon(CupertinoIcons.home, color: Colors.white),
                 title: Text(
                   "Home",
@@ -51,9 +56,7 @@ class MyDrawer extends StatelessWidget {
                 ),
               ),
               ListTile(
-                onTap: (){
-                  Navigator.pushNamed(context, 'Profile');
-                },
+                onTap: ()=>Get.to(()=>ProfileScreen()),
                 leading:
                     Icon(CupertinoIcons.profile_circled, color: Colors.white),
                 title: Text(

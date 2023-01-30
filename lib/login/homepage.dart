@@ -1,5 +1,5 @@
 import 'package:doc_hub/contants/image_string.dart';
-import 'package:doc_hub/login/profile_screen.dart';
+import 'package:doc_hub/profile/profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:doc_hub/widges/drawer.dart';

@@ -1,3 +1,11 @@
+const String tFullName="Full Name";
+const String tEmail="E-Mail";
+const String tPhoneNumber="PhoneNo";
+const String tPassword="Password";
+
+
+
+
 //profile screen
 
 const String tProfile="Profile";
@@ -13,5 +21,5 @@ const String tMenu2="Billing Details";
 const String tMenu3="User Management";
 //    upate profile screen
 const String tDelete="Delete";
-const String tJoined="Joined";
+const String tJoined="Joined ";
 const String tJoinDate="31 October 2002";

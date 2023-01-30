@@ -3,7 +3,7 @@ import 'package:doc_hub/login/auth_page.dart';
 import 'package:doc_hub/login/homepage.dart';
 import 'package:doc_hub/login/phone.dart';
 import 'package:doc_hub/login//verify.dart';
-import 'package:doc_hub/login/profile_screen.dart';
+import 'package:doc_hub/profile/profile_screen.dart';
 import 'package:doc_hub/widges/themes.dart';
 import 'package:flutter/material.dart';
 
