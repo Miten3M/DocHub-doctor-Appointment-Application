@@ -1,4 +1,6 @@
 import 'package:doc_hub/Repository/user_repo.dart';
+import 'package:doc_hub/controllers/signup_controller.dart';
+import 'package:doc_hub/login/doctor_page.dart';
 import 'package:doc_hub/login/verify.dart';
 import 'package:doc_hub/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -40,228 +42,243 @@ class _MyPhoneState extends State<MyPhone> {
 
   @override
   Widget build(BuildContext context) {
+    final controller=Get.put(SignUpController());
+    final _formkey=GlobalKey<FormState>();
+
     return Scaffold(
-      
+
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           margin: EdgeInsets.only(left: 25, right: 25),
           alignment: Alignment.topCenter,
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(height: 20),
-                Text(
-                  'Welcome To DocHub',
-                  style: TextStyle(
-                    color: Colors.indigo[900],
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+            child: Form(
+              key: _formkey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(height: 30),
+                  Text(
+                    'Welcome To DocHub',
+                    style: TextStyle(
+                      color: Colors.indigo[900],
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                SizedBox(height: 20),
-                Image.asset(
-                  'assets/pageimages/doctor.png',
-                  width: 300,
-                  height: 100,
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  "Get On Board!",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "Create your profile ",
-                  style: TextStyle(
-                    fontSize: 16,
+                  SizedBox(height: 20),
+                  Image.asset(
+                    'assets/pageimages/doctor.png',
+                    width: 300,
+                    height: 100,
                   ),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Text(
+                    "Get On Board!",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Create your profile ",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
 
-                TextFormField(
-                  controller: fnameController,
-                  decoration: InputDecoration(label:Text("Full Name"),prefixIcon: Icon(LineAwesomeIcons.user),border: OutlineInputBorder(borderRadius:BorderRadius.circular(10))),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  controller: emailController ,
-                  decoration: InputDecoration(label:Text("Email"),prefixIcon: Icon(LineAwesomeIcons.user),border: OutlineInputBorder(borderRadius:BorderRadius.circular(10))),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  height: 55,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1, color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 10,
-                      ),
+                  TextFormField(
+                    controller: controller.fullName,
+                    decoration: InputDecoration(label:Text("Full Name"),prefixIcon: Icon(LineAwesomeIcons.user),border: OutlineInputBorder(borderRadius:BorderRadius.circular(10))),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: controller.email ,
+                    decoration: InputDecoration(label:Text("Email"),prefixIcon: Icon(LineAwesomeIcons.user),border: OutlineInputBorder(borderRadius:BorderRadius.circular(10))),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    height: 55,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.grey),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
 
-                      SizedBox(
-                        width: 40,
-                        child: TextField(
-                          controller: countryController,
-                          keyboardType: TextInputType.number,
+                        SizedBox(
+                          width: 40,
+                          child: TextField(
+                            controller: countryController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+
+                        Text(
+                          "|",
+                          style: TextStyle(fontSize: 33, color: Colors.grey),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                            child: TextFormField(
+                          onChanged: (value) {
+                            phone = value;
+                          },
+                          style: TextStyle(letterSpacing: 1.3),
+                          keyboardType: TextInputType.phone,
                           decoration: InputDecoration(
                             border: InputBorder.none,
+                            hintText: "Phone",
+                          ),
+                              controller: controller.phoneNo,
+                        ))
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: controller.password,
+                    decoration: InputDecoration(label:Text("Password"),prefixIcon: Icon(LineAwesomeIcons.user),border: OutlineInputBorder(borderRadius:BorderRadius.circular(10))),
+                  ),
+
+
+
+                  SizedBox(
+                    height: 30,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 45,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.blue[900],
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10))),
+                        onPressed: () async {
+                          await FirebaseAuth.instance.verifyPhoneNumber(
+                            phoneNumber: '${countryController.text + phone}',
+                            verificationCompleted:
+                                (PhoneAuthCredential credential) {},
+
+                            verificationFailed: (FirebaseAuthException e) {},
+                            codeSent: (String verificationId, int? resendToken) {
+                              MyPhone.verify = verificationId;
+                              final user=UserModel(email: emailController.text.trim(),  fullName: fnameController.text.trim(), phoneNo: phone,password: passwordController.text.trim());
+                              userRepo.createUser(user);
+                              Get.to(()=>const MyVerify());
+                              FirebaseAuth.instance.createUserWithEmailAndPassword(
+                                email: emailController.text,
+                                password: passwordController.text,
+                              );
+                            },
+                            codeAutoRetrievalTimeout: (String verificationId) {},
+                          );
+                          if(_formkey.currentState!.validate()){
+                            SignUpController.instance.registerUser(controller.email.text.trim(), controller.password.text.trim());
+                          }
+                        },
+                        child: Text("Send the code")),
+                  ),
+                  const SizedBox(height: 30),
+                  // or continue with
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Divider(
+                            thickness: 0.5,
+                            color: Colors.grey[400],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Text(
+                            'Or continue with',
+                            style: TextStyle(color: Colors.grey[700]),
+                          ),
+                        ),
+                        Expanded(
+                          child: Divider(
+                            thickness: 0.5,
+                            color: Colors.grey[400],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 25),
+
+                  // google + apple sign in buttons
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // google button
+
+                      SquareTile(
+                        imagePath: 'assets/pageimages/google.png',
+                        onTap: () {
+                          signInWithGoogle();
+                        },
+                      ),
+
+                      SizedBox(width: 25),
+
+                      // apple button
+                      SquareTile(
+                        imagePath: 'assets/pageimages/apple.png',
+                        onTap: () {},
+                      )
+                    ],
+                  ),
+
+                  const SizedBox(height: 25),
+
+                  // not a member? register now
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'For Doctor',
+                        style: TextStyle(color: Colors.grey[700]),
+                      ),
+                      const SizedBox(width: 4),
+                      GestureDetector(
+                        onTap: ()=>Get.to(DocterPage()),
+                        child: const Text(
+                          'Click Here',
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-
-                      Text(
-                        "|",
-                        style: TextStyle(fontSize: 33, color: Colors.grey),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                          child: TextField(
-                        onChanged: (value) {
-                          phone = value;
-                        },
-                        style: TextStyle(letterSpacing: 1.3),
-                        keyboardType: TextInputType.phone,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Phone",
-                        ),
-                      ))
                     ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  controller: passwordController,
-                  decoration: InputDecoration(label:Text("Password"),prefixIcon: Icon(LineAwesomeIcons.user),border: OutlineInputBorder(borderRadius:BorderRadius.circular(10))),
-                ),
-
-
-
-                SizedBox(
-                  height: 30,
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  height: 45,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.blue[900],
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      onPressed: () async {
-                        await FirebaseAuth.instance.verifyPhoneNumber(
-                          phoneNumber: '${countryController.text + phone}',
-                          verificationCompleted:
-                              (PhoneAuthCredential credential) {},
-                          verificationFailed: (FirebaseAuthException e) {},
-                          codeSent: (String verificationId, int? resendToken) {
-                            MyPhone.verify = verificationId;
-                            final user=UserModel(email: emailController.text.trim(),  fullName: fnameController.text.trim(), phoneNo: phone,password: passwordController.text.trim());
-                            userRepo.createUser(user);
-                            Get.to(()=>const MyVerify());
-                          },
-                          codeAutoRetrievalTimeout: (String verificationId) {},
-                        );
-                      },
-                      child: Text("Send the code")),
-                ),
-                const SizedBox(height: 30),
-                // or continue with
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text(
-                          'Or continue with',
-                          style: TextStyle(color: Colors.grey[700]),
-                        ),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(height: 25),
-
-                // google + apple sign in buttons
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // google button
-
-                    SquareTile(
-                      imagePath: 'assets/pageimages/google.png',
-                      onTap: () {
-                        signInWithGoogle();
-                      },
-                    ),
-
-                    SizedBox(width: 25),
-
-                    // apple button
-                    SquareTile(
-                      imagePath: 'assets/pageimages/apple.png',
-                      onTap: () {},
-                    )
-                  ],
-                ),
-
-                const SizedBox(height: 25),
-
-                // not a member? register now
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'For Doctor',
-                      style: TextStyle(color: Colors.grey[700]),
-                    ),
-                    const SizedBox(width: 4),
-                    GestureDetector(
-                      onTap: widget.onTap,
-                      child: const Text(
-                        'Click Here',
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ),

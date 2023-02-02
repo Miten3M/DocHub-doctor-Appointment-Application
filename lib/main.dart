@@ -1,3 +1,4 @@
+import 'package:doc_hub/Repository/authentication_repo.dart';
 import 'package:doc_hub/login/aboutUs.dart';
 import 'package:doc_hub/login/auth_page.dart';
 import 'package:doc_hub/login/homepage.dart';
@@ -13,7 +14,7 @@ import 'package:get/get.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp().then((value) => Get.put(AuthenticationRepository()));
   runApp(const MyApp());
 }
 
@@ -24,17 +25,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return  GetMaterialApp(
       theme: MyTheme.lightTheme(context),
-      // debugShowCheckedModeBanner: false,
-      darkTheme: MyTheme.darkTheme(context),
-      // home: MyPhone(),
-      initialRoute: '/',
       debugShowCheckedModeBanner: false,
-      routes: {
-        'phone': (context) => MyPhone(),
-        'verify': (context) => MyVerify(),
-        'home':(context)=>HomePage(),
-        '/':(context)=>AuthPage()
-      },
+      // darkTheme: MyTheme.darkTheme(context),
+      home: const MyPhone(),
+      // initialRoute: '/',
+      // debugShowCheckedModeBanner: false,
+      // routes: {
+      //   'phone': (context) => MyPhone(),
+      //   'verify': (context) => MyVerify(),
+      //   'home':(context)=>HomePage(),
+      //   '/':(context)=>AuthPage()
+      // },
     );
   }
 }

@@ -1,13 +1,15 @@
+import 'package:doc_hub/login/phone.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:doc_hub/components/my_button.dart';
 import 'package:doc_hub/components/my_textfield.dart';
+import 'package:get/get.dart';
 
 
 class DocterPage extends StatefulWidget {
-  final Function()? onTap;
-  DocterPage({super.key,required this.onTap});
+  // final Function()? onTap;
+  DocterPage({super.key});
 
   @override
   State<DocterPage> createState() => _DocterPageState();
@@ -145,7 +147,7 @@ class _DocterPageState extends State<DocterPage> {
                     const SizedBox(width: 4),
                     GestureDetector(
                       onTap:
-                      widget.onTap,
+                      ()=>Get.to(MyPhone()),
                       child: const Text(
                         'Click Here',
                         style: TextStyle(

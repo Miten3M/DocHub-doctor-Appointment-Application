@@ -4,17 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:doc_hub/widges/drawer.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class HomePage extends StatelessWidget {
   String project = "Doctor Appoinment System";
   final user = FirebaseAuth.instance.currentUser!;
 
  // sign user out method
-  void signUserOut ()async {
-    await FirebaseAuth.instance.signOut();
-    // FirebaseAuth.instance.signInWithCredential(credential);
 
-  }
 
 
   @override
