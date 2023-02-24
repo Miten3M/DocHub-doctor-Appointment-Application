@@ -23,3 +23,9 @@ const String tMenu3="User Management";
 const String tDelete="Delete";
 const String tJoined="Joined ";
 const String tJoinDate="31 October 2002";
+//Add Patient
+const String taddPatient="Patient's Name";
+const String tAge="Age";
+const String tGender="Gender";
+const String tPatientNumber="Mobile Number";
+const String tPEmail="Email";

@@ -9,12 +9,13 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:doc_hub/components/square_tile.dart';
-import 'package:csc_picker/csc_picker.dart';
+// import 'package:csc_picker/csc_picker.dart';
 
 class MyPhone extends StatefulWidget {
   const MyPhone({Key? key, this.onTap}) : super(key: key);
   final Function()? onTap;
   static String verify = "";
+
 
   @override
   State<MyPhone> createState() => _MyPhoneState();
@@ -36,8 +37,8 @@ class _MyPhoneState extends State<MyPhone> {
   final passwordController = TextEditingController();
   final fnameController = TextEditingController();
   final userRepo=Get.put(UserRepository());
-  
 
+  FirebaseAuth auth = FirebaseAuth.instance;
   // sign user in method
 
   @override
@@ -103,7 +104,7 @@ class _MyPhoneState extends State<MyPhone> {
                   ),
                   TextFormField(
                     controller: controller.email ,
-                    decoration: InputDecoration(label:Text("Email"),prefixIcon: Icon(LineAwesomeIcons.user),border: OutlineInputBorder(borderRadius:BorderRadius.circular(10))),
+                    decoration: InputDecoration(label:Text("Email"),prefixIcon: Icon(LineAwesomeIcons.mail_bulk),border: OutlineInputBorder(borderRadius:BorderRadius.circular(10))),
                   ),
                   SizedBox(
                     height: 20,
@@ -159,7 +160,7 @@ class _MyPhoneState extends State<MyPhone> {
                   ),
                   TextFormField(
                     controller: controller.password,
-                    decoration: InputDecoration(label:Text("Password"),prefixIcon: Icon(LineAwesomeIcons.user),border: OutlineInputBorder(borderRadius:BorderRadius.circular(10))),
+                    decoration: InputDecoration(label:Text("Password"),prefixIcon: Icon(LineAwesomeIcons.user_shield),border: OutlineInputBorder(borderRadius:BorderRadius.circular(10))),
                   ),
 
 
@@ -175,27 +176,36 @@ class _MyPhoneState extends State<MyPhone> {
                             primary: Colors.blue[900],
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10))),
-                        onPressed: () async {
-                          await FirebaseAuth.instance.verifyPhoneNumber(
-                            phoneNumber: '${countryController.text + phone}',
-                            verificationCompleted:
-                                (PhoneAuthCredential credential) {},
+                        onPressed: ()  {
+                          // await FirebaseAuth.instance.verifyPhoneNumber(
+                          //   phoneNumber: '${countryController.text + phone}',
+                          //   verificationCompleted:
+                          //       (PhoneAuthCredential credential) {}
+                          //   verificationFailed: (FirebaseAuthException e) {},
+                          //   codeSent: (String verificationId, int? resendToken) {
+                          //     MyPhone.verify = verificationId;
+                          //     Get.to(()=>const MyVerify());
+                          //     FirebaseAuth.instance.createUserWithEmailAndPassword(
+                          //       email: emailController.text,
+                          //       password: passwordController.text,
+                          //     );
+                          //   },
+                          //   codeAutoRetrievalTimeout: (String verificationId) {},
+                          // );
+                          final user = UserModel(
+                            // id: auth.currentUser!.uid,
+                              email: controller.email.text.trim(),
+                              fullName: controller.fullName.text.trim(),
+                              phoneNo:controller.phoneNo.text.trim(),
+                              password: controller.password.text.trim());
 
-                            verificationFailed: (FirebaseAuthException e) {},
-                            codeSent: (String verificationId, int? resendToken) {
-                              MyPhone.verify = verificationId;
-                              final user=UserModel(email: emailController.text.trim(),  fullName: fnameController.text.trim(), phoneNo: phone,password: passwordController.text.trim());
-                              userRepo.createUser(user);
-                              Get.to(()=>const MyVerify());
-                              FirebaseAuth.instance.createUserWithEmailAndPassword(
-                                email: emailController.text,
-                                password: passwordController.text,
-                              );
-                            },
-                            codeAutoRetrievalTimeout: (String verificationId) {},
-                          );
                           if(_formkey.currentState!.validate()){
+                            userRepo.createUser(user);
+                            SignUpController.instance.phoneAuthentication('${countryController.text + phone}');
                             SignUpController.instance.registerUser(controller.email.text.trim(), controller.password.text.trim());
+
+
+                            Get.to(()=> const MyVerify());
                           }
                         },
                         child: Text("Send the code")),

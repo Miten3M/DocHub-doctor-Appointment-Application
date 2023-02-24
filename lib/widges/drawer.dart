@@ -1,5 +1,5 @@
 import 'package:doc_hub/contants/colors.dart';
-import 'package:doc_hub/login/homepage.dart';
+import 'package:doc_hub/homepages/home_page.dart';
 import 'package:doc_hub/profile/profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,8 +15,7 @@ class MyDrawer extends StatelessWidget {
   void signUserOut() async {
     await GoogleSignIn().disconnect();
     await FirebaseAuth.instance.signOut();
-
-
+    
   }
   @override
   Widget build(BuildContext context) {
@@ -36,7 +35,7 @@ class MyDrawer extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 child: UserAccountsDrawerHeader(
                   margin: EdgeInsets.zero,
-                  accountName: Text(user.displayName!),
+                  accountName:user.displayName!=null? Text(user.displayName!):Text("Your Dashboard"),
 
                  accountEmail:user.email != null?Text(user.email!):Text(user.phoneNumber!),
 

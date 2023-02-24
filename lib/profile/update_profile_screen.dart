@@ -3,7 +3,8 @@ import 'package:doc_hub/contants/image_string.dart';
 import 'package:doc_hub/contants/text_strings.dart';
 import 'package:doc_hub/controllers/profile_controller.dart';
 import 'package:doc_hub/models/user.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -14,8 +15,7 @@ class UpdateProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final controller=Get.put(ProfileController());
+    final controller = Get.put(ProfileController());
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -30,14 +30,22 @@ class UpdateProfile extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(30),
-          // child: FutureBuilder(
-          //   future: controller.getUserData(),
-          //   builder: (context,snapshot){
-          //     if(snapshot.connectionState==ConnectionState.done){
-          //       if(snapshot.hasData) {
-          //         UserModel userData=snapshot.data as UserModel;
-          //         return
-                  child:Column(
+          child: FutureBuilder(
+            future: controller.getUserData(),
+            builder: (context, snapshot) {
+              print("Connetction not done");
+              if (snapshot.connectionState == ConnectionState.done) {
+                print("Connetction done");
+                if (snapshot.hasData) {
+                  UserModel userData = snapshot.data as UserModel;
+
+                  final email = TextEditingController(text: userData.email);
+                  final password =
+                      TextEditingController(text: userData.password);
+                  final fullName =
+                      TextEditingController(text: userData.fullName);
+                  final phoneNo = TextEditingController(text: userData.phoneNo);
+                  return Column(
                     children: [
                       Stack(
                         children: [
@@ -46,7 +54,7 @@ class UpdateProfile extends StatelessWidget {
                             height: 120,
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(100),
-                                child: Image(image: AssetImage(profileImage))),
+                                child: Image(image: AssetImage(userProfileImage))),
                           ),
                           Positioned(
                             bottom: 0,
@@ -65,19 +73,21 @@ class UpdateProfile extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 50),
-                      Form(child: Column(
+                      Form(
+                          child: Column(
                         children: [
                           TextFormField(
+                            controller: fullName,
                             // initialValue: userData.fullName,
                             decoration: InputDecoration(
                                 label: Text(tFullName),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(100)),
-                                prefixIcon: Icon(LineAwesomeIcons.user)
-                            ),
+                                prefixIcon: Icon(LineAwesomeIcons.user)),
                           ),
                           const SizedBox(height: 20),
                           TextFormField(
+                            controller: email,
                             // initialValue: userData.email,
                             decoration: InputDecoration(
                               label: Text(tEmail),
@@ -88,30 +98,46 @@ class UpdateProfile extends StatelessWidget {
                           ),
                           const SizedBox(height: 20),
                           TextFormField(
+                            controller: phoneNo,
                             // initialValue: userData.phoneNo,
                             decoration: InputDecoration(
                                 label: Text(tPhoneNumber),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(100)),
-                                prefixIcon: Icon(LineAwesomeIcons.phone)
-                            ),
+                                prefixIcon: Icon(LineAwesomeIcons.phone)),
                           ),
                           const SizedBox(height: 20),
                           TextFormField(
+                            controller: password,
                             // initialValue: userData.password,
+
+                            obscureText: true,
                             decoration: InputDecoration(
                                 label: Text(tPassword),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(100)),
-                                prefixIcon: Icon(LineAwesomeIcons.fingerprint)
-                            ),
+                                prefixIcon: Icon(LineAwesomeIcons.fingerprint),
+                                suffixIcon: IconButton(
+                                  icon: const Icon(LineAwesomeIcons.eye_slash),
+                                  onPressed: () {}
+                                )),
                           ),
-                          const SizedBox(height: 40,),
+                          const SizedBox(
+                            height: 40,
+                          ),
                           SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(
-                              onPressed: () =>
-                                  Get.to(() => const UpdateProfile()),
+                              onPressed: () async {
+                                final user = UserModel(
+                                  id: userData.id,
+                                    email: email.text.trim(),
+                                    fullName: fullName.text.trim(),
+                                    password: password.text.trim(),
+                                    phoneNo: password.text.trim());
+                                await controller.updateRecord(user);
+
+                              },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: cPrimaryColor,
                                   side: BorderSide.none,
@@ -120,7 +146,9 @@ class UpdateProfile extends StatelessWidget {
                                   style: TextStyle(color: cDarkColor)),
                             ),
                           ),
-                          const SizedBox(height: 40,),
+                          const SizedBox(
+                            height: 40,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -128,40 +156,38 @@ class UpdateProfile extends StatelessWidget {
                                 text: tJoined,
                                 style: TextStyle(fontSize: 12),
                                 children: [
-                                  TextSpan(text: tJoinDate,
+                                  TextSpan(
+                                      text: tJoinDate,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 12))
                                 ],
                               ))),
-                              ElevatedButton(onPressed: () {},
+                              ElevatedButton(
+                                  onPressed: () {},
                                   style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.red.withOpacity(
-                                          0.1)
-                                      ,
+                                      backgroundColor:
+                                          Colors.red.withOpacity(0.1),
                                       elevation: 0,
                                       foregroundColor: Colors.red,
                                       shape: const StadiumBorder(),
-                                      side: BorderSide.none
-                                  ),
+                                      side: BorderSide.none),
                                   child: const Text(tDelete)),
                             ],
                           )
                         ],
                       ))
-
                     ],
-                  // );
-              //   }
-              //   else if(snapshot.hasError){
-              //     return Center(child: Text(snapshot.error.toString()));
-              //   }else{
-              //     return const Center(child: Text("Something went wrong"));
-              //   }
-              // }else{
-              //   return const Center(child: CircularProgressIndicator());
-              // }
-            // },
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(child: Text(snapshot.error.toString()));
+                } else {
+                  return const Center(child: Text("Something went wrong"));
+                }
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
+            },
           ),
         ),
       ),

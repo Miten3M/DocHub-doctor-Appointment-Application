@@ -1,4 +1,4 @@
-import 'dart:ui';
+
 
 import 'package:doc_hub/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -30,9 +30,16 @@ class UserRepository extends GetxController{
   }
 
   Future<UserModel> getUserDetail(String email)async{
+    print("User repo");
     final snapshot =await _db.collection("Users").where("Email",isEqualTo: email).get();
-    final userData=snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
+    final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
+    print(userData.id);
     return userData;
+  }
+
+  Future<void> updateUserRecord(UserModel user) async{
+    print(user.id);
+    await _db.collection("Users").doc(user.id).update(user.toJson());
   }
 
 }

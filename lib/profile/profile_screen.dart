@@ -1,10 +1,15 @@
+import 'package:doc_hub/Repository/authentication_repo.dart';
 import 'package:doc_hub/contants/colors.dart';
 import 'package:doc_hub/contants/image_string.dart';
 import 'package:doc_hub/contants/text_strings.dart';
-import 'package:doc_hub/login/homepage.dart';
+import 'package:doc_hub/homepages/Main_Layout.dart';
+import 'package:doc_hub/homepages/home_page.dart';
+
+import 'package:doc_hub/patients/patients.dart';
 import 'package:doc_hub/profile/update_profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:get/get.dart';
 
@@ -15,27 +20,20 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
-    void signUserOut() {
-      FirebaseAuth.instance.signOut();
-      // FirebaseAuth.instance.signInWithCredential(credential);
+
+    void signUserOut() async {
+      // await GoogleSignIn().disconnect();
+      await FirebaseAuth.instance.signOut();
+
     }
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () => Get.back(),
-            icon: const Icon(LineAwesomeIcons.angle_left)),
         centerTitle: true,
         title: Text(
           tProfile,
           style: TextStyle(color: Colors.black),
         ),
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: Icon(isDark ? LineAwesomeIcons.sun : LineAwesomeIcons.moon))
-        ],
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -49,7 +47,7 @@ class ProfileScreen extends StatelessWidget {
                     height: 120,
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
-                        child: Image(image: AssetImage(profileImage))),
+                        child: Image(image: AssetImage(userProfileImage))),
                   ),
                   Positioned(
                     bottom:0,
@@ -71,11 +69,11 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              Text(tProfileHeading,
+              Text("Your Profile",
                   style: Theme.of(context).textTheme.headline4),
-              Text(tProfileSubHeading,
+              Text("Wellcome!!",
                   style: Theme.of(context).textTheme.bodyText2),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               SizedBox(
                 width: 200,
                 child: ElevatedButton(
@@ -88,13 +86,13 @@ class ProfileScreen extends StatelessWidget {
                       style: TextStyle(color: cDarkColor)),
                 ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 20),
               const Divider(),
               const SizedBox(height: 10),
               ProfileMenuWidget(
-                title: "Setting",
+                title: "Patients",
                 icon: LineAwesomeIcons.cog,
-                onPress: () {},
+                onPress: () {Get.to(()=>Patient());},
               ),
               ProfileMenuWidget(
                 title: "Billing Details",

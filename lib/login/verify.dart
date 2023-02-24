@@ -1,7 +1,9 @@
+import 'package:doc_hub/controllers/otp_controller.dart';
 import 'package:doc_hub/login/phone.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
+import 'package:get/get.dart';
 
 class MyVerify extends StatefulWidget {
   const MyVerify({Key? key}) : super(key: key);
@@ -14,6 +16,7 @@ class _MyVerifyState extends State<MyVerify> {
   final FirebaseAuth auth=FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
+    var otpcontroller=Get.put(OTPController());
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 56,
@@ -114,6 +117,7 @@ class _MyVerifyState extends State<MyVerify> {
                 // submittedPinTheme: submittedPinTheme,
                 onChanged:(value) {
                   code = value;
+                  // OTPController.instance.verifyOTP(code);
                 },
                 showCursor: true,
                 onCompleted: (pin) => print(pin),
@@ -129,22 +133,8 @@ class _MyVerifyState extends State<MyVerify> {
                         primary: Colors.blue[900],
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
-                    onPressed: () async {
-                      try {
-                        PhoneAuthCredential credential = PhoneAuthProvider.credential(
-                            verificationId:MyPhone.verify, smsCode:code);
-
-                        // Sign the user in (or link) with the credential
-                        await auth.signInWithCredential(credential);
-                        Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
-                      }
-                        on FirebaseAuthException catch (e) {
-                        // pop the loading circle
-                        Navigator.pop(context);
-                        // show error message
-                        showErrorMessage(e.code);
-                      }
-
+                    onPressed: ()  {
+                      OTPController.instance.verifyOTP(code);
                     },
                     child: Text("Verify Phone Number")),
               ),
@@ -176,3 +166,17 @@ class _MyVerifyState extends State<MyVerify> {
     );
   }
 }
+// try {
+//   PhoneAuthCredential credential = PhoneAuthProvider.credential(
+//       verificationId:MyPhone.verify, smsCode:code);
+//
+//   // Sign the user in (or link) with the credential
+//   await auth.signInWithCredential(credential);
+//   Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+// }
+//   on FirebaseAuthException catch (e) {
+//   // pop the loading circle
+//   Navigator.pop(context);
+//   // show error message
+//   showErrorMessage(e.code);
+// }

@@ -128,6 +128,7 @@ class _DocterPageState extends State<DocterPage> {
 
                 // sign in button
                 MyButton(
+                  text: "Sign In",
                   onTap: signUserIn,
                 ),
 

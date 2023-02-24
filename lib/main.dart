@@ -1,10 +1,9 @@
 import 'package:doc_hub/Repository/authentication_repo.dart';
-import 'package:doc_hub/login/aboutUs.dart';
-import 'package:doc_hub/login/auth_page.dart';
-import 'package:doc_hub/login/homepage.dart';
+import 'package:doc_hub/homepages/Main_Layout.dart';
+import 'package:doc_hub/homepages/booking_page.dart';
+import 'package:doc_hub/homepages/doctor_details.dart';
+
 import 'package:doc_hub/login/phone.dart';
-import 'package:doc_hub/login//verify.dart';
-import 'package:doc_hub/profile/profile_screen.dart';
 import 'package:doc_hub/widges/themes.dart';
 import 'package:flutter/material.dart';
 
@@ -30,12 +29,15 @@ class MyApp extends StatelessWidget {
       home: const MyPhone(),
       // initialRoute: '/',
       // debugShowCheckedModeBanner: false,
-      // routes: {
-      //   'phone': (context) => MyPhone(),
-      //   'verify': (context) => MyVerify(),
-      //   'home':(context)=>HomePage(),
-      //   '/':(context)=>AuthPage()
-      // },
+      getPages: [
+        GetPage(name: '/main', page: () => MainLayout()),
+        GetPage(name: '/doc_details', page: () => const DoctorDetails()),
+        GetPage(
+            name: '/booking_page',
+            page: () =>BookingPage(),
+            transition: Transition.zoom
+        ),
+      ],
     );
   }
 }
