@@ -20,6 +20,7 @@ class AppointmentModel {
   });
   toJson() {
     return {
+      "id":id,
       "p_id":p_id,
       "doc_id": doc_id,
       "date": date,
@@ -31,7 +32,7 @@ class AppointmentModel {
   factory AppointmentModel.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data()!;
-    return AppointmentModel(p_id: data["p_id"], doc_id: data["doc_id"], date:  data["date"], time:  data["time"], day:  data["day"],status: data["status"]);
+    return AppointmentModel(p_id: data["p_id"], doc_id: data["doc_id"], date:  data["date"], time:  data["time"], day:  data["day"],status: data["status"],id:document.id);
 
 
   }

@@ -10,13 +10,13 @@ class SignUpController extends GetxController{
    final fullName=TextEditingController();
    final phoneNo=TextEditingController();
 
-   void registerUser(String email,String password){
-     print("sign up email");
-      AuthenticationRepository.instance.createUserWithEmailAndPassword(email, password);
-   }
+
 
    void phoneAuthentication(String phoneNo){
       AuthenticationRepository.instance.phoneAuthentication(phoneNo);
+   }
+   void signInWithGoogle(){
+     AuthenticationRepository.instance.signInWithGoogle();
    }
 
 

@@ -8,12 +8,14 @@ class ProfileController extends GetxController{
   static ProfileController get instance => Get.find();
 
 
-  final _authRepo=Get.put(AuthenticationRepository());
+  final _authRepo=AuthenticationRepository.instance;
   final _userRepo=Get.put(UserRepository());
   // FirebaseAuth auth = FirebaseAuth.instance;
   getUserData() async {
     // print("User email fetch");
-    final email = await _authRepo.firebaseUser.value?.email;
+    final email = _authRepo.firebaseUser.value?.email;
+    final id = await _authRepo.firebaseUser.value?.uid;
+    print(id);
     print(email);
     if(email!=null)
       {

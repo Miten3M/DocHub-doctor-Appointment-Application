@@ -5,6 +5,7 @@ import 'package:doc_hub/login/phone.dart';
 import 'package:doc_hub/login/verify.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationRepository extends GetxController{
   static AuthenticationRepository get instance => Get.find();
@@ -59,13 +60,24 @@ class AuthenticationRepository extends GetxController{
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      firebaseUser.value != null ? Get.offAll(() =>  MyVerify()) : Get.to(() =>
-          MyPhone());
-      print(email);
+      
+
+      print("email"+email);
     }
     on FirebaseAuthException catch (e) {
             print("Error at email verification");
     } catch (_) {}
+  }
+  signInWithGoogle() async {
+    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+    UserCredential userCredential =
+    await _auth.signInWithCredential(credential);
+    print(userCredential.user?.displayName);
   }
 
 }

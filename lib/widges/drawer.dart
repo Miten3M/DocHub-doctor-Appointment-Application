@@ -1,4 +1,5 @@
-import 'package:doc_hub/contants/colors.dart';
+
+import 'package:doc_hub/homepages/config.dart';
 import 'package:doc_hub/homepages/home_page.dart';
 import 'package:doc_hub/profile/profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,7 +25,7 @@ class MyDrawer extends StatelessWidget {
         "https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?w=2000";
     return Drawer(
       child: Container(
-        color: cPrimaryColor,
+        color:Config.primaryColor,
         child: InkWell(
 
           child: ListView(

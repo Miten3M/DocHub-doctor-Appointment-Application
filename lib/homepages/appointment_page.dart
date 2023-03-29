@@ -1,6 +1,8 @@
 import 'package:doc_hub/controllers/appointment_controller.dart';
 import 'package:doc_hub/controllers/doctor_list_controller.dart';
+import 'package:doc_hub/homepages/booking_page.dart';
 import 'package:doc_hub/models/appointmentcard.dart';
+import 'package:doc_hub/models/appointments.dart';
 import 'package:doc_hub/models/doctor.dart';
 import 'package:get/get.dart';
 import 'package:doc_hub/homepages/config.dart';
@@ -13,12 +15,13 @@ class AppointmentPage extends StatefulWidget {
   State<AppointmentPage> createState() => _AppointmentPageState();
 }
 
-enum FilterStatus { upcoming, complete, cancel }
+
 
 class _AppointmentPageState extends State<AppointmentPage> {
-  FilterStatus status = FilterStatus.upcoming;
+
   Alignment _alignment = Alignment.centerLeft;
   int currentIndex = 0;
+  int _lightIsOn = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +90,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                 onTap: () {
                                   setState(() {
                                     currentIndex = 0;
+                                    _lightIsOn =0;
                                   });
                                 },
                                 child: AnimatedAlign(
@@ -96,14 +100,14 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                     width: 100,
                                     height: 40,
                                     decoration: BoxDecoration(
-                                      color: Config.primaryColor,
+                                      color:_lightIsOn==0?Colors.teal:Colors.transparent,
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: Center(
                                       child: Text(
-                                        "upcoming",
-                                        style: const TextStyle(
-                                          color: Colors.white,
+                                        "Upcoming",
+                                        style:  TextStyle(
+                                          color: _lightIsOn==0?Colors.white:Colors.teal,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
@@ -115,6 +119,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                 onTap: () {
                                   setState(() {
                                     currentIndex = 1;
+                                    _lightIsOn = 1;
                                   });
                                 },
                                 child: AnimatedAlign(
@@ -124,14 +129,14 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                     width: 100,
                                     height: 40,
                                     decoration: BoxDecoration(
-                                      color: Config.primaryColor,
+                                      color: _lightIsOn==1?Colors.teal:Colors.transparent,
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: Center(
                                       child: Text(
-                                        "completed",
-                                        style: const TextStyle(
-                                          color: Colors.white,
+                                        "Completed",
+                                        style:  TextStyle(
+                                          color: _lightIsOn==1?Colors.white:Colors.teal,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
@@ -143,6 +148,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                 onTap: () {
                                   setState(() {
                                     currentIndex = 2;
+                                    _lightIsOn = 2;
+
                                   });
                                 },
                                 child: AnimatedAlign(
@@ -152,14 +159,14 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                     width: 100,
                                     height: 40,
                                     decoration: BoxDecoration(
-                                      color: Config.primaryColor,
+                                      color: _lightIsOn==2?Colors.teal:Colors.transparent,
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: Center(
                                       child: Text(
-                                        "cancel",
-                                        style: const TextStyle(
-                                          color: Colors.white,
+                                        "Cancel",
+                                        style: TextStyle(
+                                          color: _lightIsOn==2?Colors.white:Colors.teal,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
@@ -244,7 +251,17 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                     children: [
                                       Expanded(
                                         child: OutlinedButton(
-                                          onPressed: () {},
+                                          onPressed: () {AppointmentModel appoint=AppointmentModel(
+                                              p_id: currentIndex==0 ? upcoming[index].p_id : currentIndex==1 ? completed[index].p_id : cancelled[index].p_id,
+                                              doc_id:currentIndex==0 ? upcoming[index].doc_id : currentIndex==1 ? completed[index].doc_id : cancelled[index].doc_id ,
+                                              date: currentIndex==0 ? upcoming[index].date : currentIndex==1 ? completed[index].date : cancelled[index].date,
+                                              day: currentIndex==0 ? upcoming[index].day : currentIndex==1 ? completed[index].day : cancelled[index].day,
+                                              time: currentIndex==0 ? upcoming[index].time : currentIndex==1 ? completed[index].time : cancelled[index].time,
+                                              status:"cancelled");
+                                              controller.cancelAppointment(appoint,currentIndex==0 ? upcoming[index].appoint_id: currentIndex==1 ? completed[index].appoint_id : cancelled[index].appoint_id , currentIndex==0 ? upcoming[index].p_id : currentIndex==1 ? completed[index].p_id : cancelled[index].p_id);
+                                              setState(() {
+
+                                              });},
                                           child: const Text(
                                             'Cancel',
                                             style: TextStyle(
@@ -261,7 +278,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                             backgroundColor:
                                             Config.primaryColor,
                                           ),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Get.to(BookingPage(),arguments: {"p_id":currentIndex==0 ? upcoming[index].p_id : currentIndex==1 ? completed[index].p_id : cancelled[index].p_id,"doc_id":currentIndex==0 ? upcoming[index].doc_id : currentIndex==1 ? completed[index].doc_id : cancelled[index].doc_id});},
                                           child: const Text(
                                             'Reschedule',
                                             style:
@@ -319,22 +337,22 @@ class ScheduleCard extends StatelessWidget {
         children: <Widget>[
           Icon(
             Icons.calendar_today,
-            color: Config.primaryColor,
+            color: Config.primaryColor.shade300,
             size: 15,
           ),
           SizedBox(
             width: 5,
           ),
           Text(
-            "$day$date",
-            style: TextStyle(color: Config.primaryColor),
+            "$day  $date",
+            style: TextStyle(color: Config.primaryColor.shade300),
           ),
           SizedBox(
             width: 20,
           ),
           Icon(
             Icons.access_alarm,
-            color: Config.primaryColor,
+            color: Config.primaryColor.shade300,
             size: 17,
           ),
           SizedBox(
@@ -342,8 +360,8 @@ class ScheduleCard extends StatelessWidget {
           ),
           Flexible(
               child: Text(
-            '2:00 PM',
-            style: TextStyle(color: Config.primaryColor),
+            time,
+            style: TextStyle(color: Config.primaryColor.shade300),
           ))
         ],
       ),

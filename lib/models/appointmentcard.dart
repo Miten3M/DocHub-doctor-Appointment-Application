@@ -10,13 +10,14 @@ class AppointmentCardModel {
   final String doctor_name;
   final String doc_profile;
   final String category;
+  final String appoint_id;
 
 
 
-  const AppointmentCardModel({
+  const AppointmentCardModel( {
     this.id,
+    required this.appoint_id,
     required this.doctor_name,
-
     required this.p_id,
     required this.doc_id,
     required this.date,
@@ -29,8 +30,8 @@ class AppointmentCardModel {
   });
   toJson() {
     return {
+      "appoint_id":appoint_id,
       "doctor_name":doctor_name,
-
       "doc_profile":status,
       "category":category,
       "p_id":p_id,
@@ -45,7 +46,7 @@ class AppointmentCardModel {
       DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data()!;
     return AppointmentCardModel(doctor_name:data["doctor_name"],
-
+        appoint_id:data["appoint_id"],
         p_id:data["p_id"],
         doc_id:data["doc_id"] ,
         date: data["date"],

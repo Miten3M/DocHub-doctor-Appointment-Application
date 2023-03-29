@@ -1,7 +1,7 @@
 import 'package:doc_hub/components/custom_appbar.dart';
-import 'package:doc_hub/contants/colors.dart';
 import 'package:doc_hub/controllers/patient_Controller.dart';
 import 'package:doc_hub/homepages/Main_Layout.dart';
+import 'package:doc_hub/homepages/config.dart';
 import 'package:doc_hub/models/patient.dart';
 import 'package:doc_hub/profile/profile_screen.dart';
 import 'package:get/get.dart';
@@ -23,20 +23,20 @@ class _PatientState extends State<Patient> {
   Widget build(BuildContext context) {
     final controller = Get.put(PatientController());
     return Scaffold(
-      // appBar: CustomAppBar(
-      //   appTitle: 'Doctor Details',
-      //   icon: const FaIcon(Icons.arrow_back_ios),
-      // ),
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: () => Get.to(MainLayout()),
-            icon: const Icon(LineAwesomeIcons.angle_left)),
-        centerTitle: true,
-        title: Text(
-          "Patients",
-          style: TextStyle(color: Colors.black),
-        ),
+      appBar: CustomAppBar(
+        appTitle: 'Patients',
+        icon: const FaIcon(Icons.arrow_back_ios),
       ),
+      // appBar: AppBar(
+      //   leading: IconButton(
+      //       onPressed: () => Get.to(MainLayout()),
+      //       icon: const Icon(LineAwesomeIcons.angle_left)),
+      //   centerTitle: true,
+      //   title: Text(
+      //     "Patients",
+      //     style: TextStyle(color: Colors.black),
+      //   ),
+      // ),
       body: Container(
         // padding: const EdgeInsets.all(30),
         margin: EdgeInsets.only(left: 25, right: 25),
@@ -57,7 +57,7 @@ class _PatientState extends State<Patient> {
                           return Column(
                             children: [
                               ListTile(
-                                iconColor: tPrimaryColor,
+                                iconColor: Config.primaryColor,
                                 tileColor: Colors.teal.withOpacity(0.3),
                                 leading: const Icon(LineAwesomeIcons.user_1),
                                 title: Text(
@@ -66,7 +66,7 @@ class _PatientState extends State<Patient> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                        "Gender : ${snapshot.data![index].gender}    Age : ${snapshot.data![index].age} "),
+                                        "${snapshot.data![index].gender}    Age : ${snapshot.data![index].age} "),
                                     Text(snapshot.data![index].pNumber),
                                     (snapshot.data![index].email != null)
                                         ? Text(snapshot.data![index].email!)
@@ -83,7 +83,7 @@ class _PatientState extends State<Patient> {
                       height: 45,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              primary: Colors.blue[900],
+                              primary: Config.primaryColor,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10))),
                           onPressed: () {
@@ -101,11 +101,10 @@ class _PatientState extends State<Patient> {
                   children: [
                     Image.asset(
                       'assets/pageimages/addPatient.png',
-                      width: 350,
-                      height: 200,
+                        fit: BoxFit.cover
                     ),
                     SizedBox(
-                      height: 25,
+                      height: 20,
                     ),
                     Text(
                       "Add Patient",
@@ -130,7 +129,7 @@ class _PatientState extends State<Patient> {
                       height: 45,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              primary: Colors.blue[900],
+                              primary: Config.primaryColor,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10))),
                           onPressed: () {

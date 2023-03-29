@@ -1,9 +1,11 @@
 import 'package:doc_hub/Repository/authentication_repo.dart';
-import 'package:doc_hub/contants/colors.dart';
+
 import 'package:doc_hub/contants/image_string.dart';
 import 'package:doc_hub/contants/text_strings.dart';
 import 'package:doc_hub/homepages/Main_Layout.dart';
+import 'package:doc_hub/homepages/config.dart';
 import 'package:doc_hub/homepages/home_page.dart';
+import 'package:doc_hub/login/aboutUs.dart';
 
 import 'package:doc_hub/patients/patients.dart';
 import 'package:doc_hub/profile/update_profile_screen.dart';
@@ -57,11 +59,11 @@ class ProfileScreen extends StatelessWidget {
                       height: 35,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
-                        color: cPrimaryColor,
+                        color: Config.primaryColor,
                       ),
                       child: const Icon(
                         LineAwesomeIcons.alternate_pencil,
-                        color: Colors.black,
+                        color: Colors.white,
                         size:20
                       ),
                     ),
@@ -79,11 +81,11 @@ class ProfileScreen extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () => Get.to(() => const UpdateProfile()),
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: cPrimaryColor,
+                      backgroundColor: Config.primaryColor,
                       side: BorderSide.none,
                       shape: const StadiumBorder()),
                   child: const Text(tEditprofile,
-                      style: TextStyle(color: cDarkColor)),
+                      style: TextStyle(color: Colors.white)),
                 ),
               ),
               const SizedBox(height: 20),
@@ -91,17 +93,17 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 10),
               ProfileMenuWidget(
                 title: "Patients",
-                icon: LineAwesomeIcons.cog,
+                icon: LineAwesomeIcons.user_check,
                 onPress: () {Get.to(()=>Patient());},
               ),
               ProfileMenuWidget(
-                title: "Billing Details",
+                title: "Payment Details",
                 icon: LineAwesomeIcons.walking,
                 onPress: () {},
               ),
               ProfileMenuWidget(
-                title: "User Management",
-                icon: LineAwesomeIcons.user_check,
+                title: "Setting",
+                icon: LineAwesomeIcons.cog,
                 onPress: () {},
               ),
               const Divider(
@@ -113,7 +115,7 @@ class ProfileScreen extends StatelessWidget {
               ProfileMenuWidget(
                   title: "Information",
                   icon: LineAwesomeIcons.info,
-                  onPress: () {}),
+                  onPress: () {Get.to(AboutUs());}),
               ProfileMenuWidget(
                   title: "Logout",
                   icon: LineAwesomeIcons.alternate_sign_out,

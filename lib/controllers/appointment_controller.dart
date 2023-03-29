@@ -26,6 +26,19 @@ class AppointmentController extends GetxController {
     }
   }
 
+  void cancelAppointment(AppointmentModel appoint,String appoint_id, String p) async{
+    final email = await _authRepo.firebaseUser.value?.email;
+    print(email);
+    if(email!=null)
+    {
+      print('User email fetch 1');
+      return _appointRepo.updateAppointmentRecord(appoint, email,p ,appoint_id );
+
+    }else{
+      return Future(() => List.empty());
+    }
+  }
+
 
   }
 

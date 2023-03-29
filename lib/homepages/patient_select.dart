@@ -1,9 +1,9 @@
 import 'package:doc_hub/Repository/authentication_repo.dart';
 import 'package:doc_hub/components/custom_appbar.dart';
-import 'package:doc_hub/contants/colors.dart';
 import 'package:doc_hub/controllers/patient_Controller.dart';
 import 'package:doc_hub/homepages/Main_Layout.dart';
 import 'package:doc_hub/homepages/booking_page.dart';
+import 'package:doc_hub/homepages/config.dart';
 import 'package:doc_hub/models/patient.dart';
 import 'package:doc_hub/patients/addPatient.dart';
 import 'package:doc_hub/profile/profile_screen.dart';
@@ -56,7 +56,7 @@ class _Patient_selectState extends State<Patient_select > {
                                   onTap:(){
                                   Get.to(BookingPage(),arguments: {"p_id":snapshot.data![index].id,"doc_id":'${Get.arguments['doc_id']}'});},
 
-                                  iconColor: tPrimaryColor,
+                                  iconColor: Config.primaryColor,
                                   tileColor: Colors.teal.withOpacity(0.3),
                                   leading: const Icon(LineAwesomeIcons.user_1),
                                   title: Text(
@@ -83,7 +83,7 @@ class _Patient_selectState extends State<Patient_select > {
                       height: 45,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              primary: Colors.blue[900],
+                              primary: Config.primaryColor,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10))),
                           onPressed: () {
@@ -100,12 +100,11 @@ class _Patient_selectState extends State<Patient_select > {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'assets/pageimages/addPatient.png',
-                      width: 350,
-                      height: 200,
+                        'assets/pageimages/addPatient.png',
+                        fit: BoxFit.cover
                     ),
                     SizedBox(
-                      height: 25,
+                      height: 20,
                     ),
                     Text(
                       "Add Patient",
@@ -130,7 +129,7 @@ class _Patient_selectState extends State<Patient_select > {
                       height: 45,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              primary: Colors.blue[900],
+                              primary: Config.primaryColor,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10))),
                           onPressed: () {

@@ -63,16 +63,15 @@ class _HomePageState extends State<HomePage> {
                   print("Connetction done");
                   if (snapshot.hasData) {
 
-
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
+                          children: const <Widget>[
                             Text(
-                              "Miten",
+                              "  Book Your Appointment!",
                               style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
@@ -165,14 +164,14 @@ class _HomePageState extends State<HomePage> {
                                           children: <Widget>[
                                             Text(
                                               snapshot.data![index].doctorName,
-                                              style:TextStyle(
+                                              style:const TextStyle(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
                                              Text(
                                                snapshot.data![index].doctorSpecialty,
-                                              style:TextStyle(
+                                              style:const TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.normal,
                                               ),
@@ -181,14 +180,14 @@ class _HomePageState extends State<HomePage> {
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children:  <Widget>[
-                                                Icon(Icons.star_border, color: Colors.yellow,size: 16,),
-                                                Spacer(flex: 1,),
+                                                const Icon(Icons.star_border, color: Colors.yellow,size: 16,),
+                                                const Spacer(flex: 1,),
                                                 Text(snapshot.data![index].doctorRating,),
-                                                Spacer(flex: 1,),
-                                                Text('Reviews'),
-                                                Spacer(flex: 1,),
+                                                const Spacer(flex: 1,),
+                                                const Text('Reviews'),
+                                                const Spacer(flex: 1,),
                                                 Text('(${snapshot.data![index].doctorNumberOfPatient})'),
-                                                Spacer(flex: 7,),
+                                                const Spacer(flex: 7,),
                                               ],
                                             ),
                                           ],

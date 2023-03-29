@@ -1,5 +1,6 @@
 import 'package:doc_hub/Repository/user_repo.dart';
 import 'package:doc_hub/controllers/signup_controller.dart';
+import 'package:doc_hub/homepages/config.dart';
 import 'package:doc_hub/login/doctor_page.dart';
 import 'package:doc_hub/login/verify.dart';
 import 'package:doc_hub/models/user.dart';
@@ -63,27 +64,19 @@ class _MyPhoneState extends State<MyPhone> {
                   Text(
                     'Welcome To DocHub',
                     style: TextStyle(
-                      color: Colors.indigo[900],
-                      fontSize: 20,
+                      color: Config.primaryColor.shade700,
+                      fontSize: 25,
                       fontWeight: FontWeight.bold,
+                      fontFamily: 'Roboto'
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 10),
                   Image.asset(
-                    'assets/pageimages/doctor.png',
+                    'assets/pageimages/doctor1.png',
                     width: 300,
-                    height: 100,
+                    height: 150,
                   ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    "Get On Board!",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
+
                   Text(
                     "Create your profile ",
                     style: TextStyle(
@@ -173,7 +166,7 @@ class _MyPhoneState extends State<MyPhone> {
                     height: 45,
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: Colors.blue[900],
+                            primary: Config.primaryColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10))),
                         onPressed: ()  {
@@ -202,10 +195,12 @@ class _MyPhoneState extends State<MyPhone> {
                           if(_formkey.currentState!.validate()){
                             userRepo.createUser(user);
                             SignUpController.instance.phoneAuthentication('${countryController.text + phone}');
-                            SignUpController.instance.registerUser(controller.email.text.trim(), controller.password.text.trim());
+                            // SignUpController.instance.registerUser(controller.email.text.trim(), controller.password.text.trim());
 
 
-                            Get.to(()=> const MyVerify());
+                            Get.to(()=> const MyVerify(),arguments: {
+                              "email":'${controller.email.text.trim()}',"password":'${controller.password.text.trim()}'
+                            });
                           }
                         },
                         child: Text("Send the code")),
@@ -250,7 +245,7 @@ class _MyPhoneState extends State<MyPhone> {
                       SquareTile(
                         imagePath: 'assets/pageimages/google.png',
                         onTap: () {
-                          signInWithGoogle();
+                          SignUpController.instance.signInWithGoogle();
                         },
                       ),
 
@@ -280,7 +275,7 @@ class _MyPhoneState extends State<MyPhone> {
                         child: const Text(
                           'Click Here',
                           style: TextStyle(
-                            color: Colors.blue,
+                            color: Colors.teal,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -296,15 +291,5 @@ class _MyPhoneState extends State<MyPhone> {
     );
   }
 
-  signInWithGoogle() async {
-    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-    AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-    UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithCredential(credential);
-    print(userCredential.user?.displayName);
-  }
+
 }

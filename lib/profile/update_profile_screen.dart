@@ -1,7 +1,8 @@
-import 'package:doc_hub/contants/colors.dart';
+
 import 'package:doc_hub/contants/image_string.dart';
 import 'package:doc_hub/contants/text_strings.dart';
 import 'package:doc_hub/controllers/profile_controller.dart';
+import 'package:doc_hub/homepages/config.dart';
 import 'package:doc_hub/models/user.dart';
 
 // import 'package:firebase_auth/firebase_auth.dart';
@@ -64,10 +65,10 @@ class UpdateProfile extends StatelessWidget {
                               height: 35,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
-                                color: cPrimaryColor,
+                                color: Config.primaryColor,
                               ),
                               child: const Icon(LineAwesomeIcons.camera,
-                                  color: Colors.black, size: 20),
+                                  color: Colors.white, size: 20),
                             ),
                           ),
                         ],
@@ -139,11 +140,11 @@ class UpdateProfile extends StatelessWidget {
 
                               },
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: cPrimaryColor,
+                                  backgroundColor: Config.primaryColor,
                                   side: BorderSide.none,
                                   shape: const StadiumBorder()),
                               child: const Text(tEditprofile,
-                                  style: TextStyle(color: cDarkColor)),
+                                  style: TextStyle(color: Colors.white)),
                             ),
                           ),
                           const SizedBox(

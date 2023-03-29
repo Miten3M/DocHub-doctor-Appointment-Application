@@ -1,5 +1,5 @@
 
-import 'package:doc_hub/contants/colors.dart';
+import 'package:doc_hub/homepages/config.dart';
 import 'package:flutter/material.dart';
 
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -28,9 +28,9 @@ class ProfileMenuWidget extends StatelessWidget {
         width: 40,height: 40,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: cAccentColor.withOpacity(0.1),
+          color: Config.primaryColor.withOpacity(0.1),
         ),
-        child: Icon(icon,color: cAccentColor),
+        child: Icon(icon,color: Config.primaryColor),
       ),
       title: Text(title,style: Theme.of(context).textTheme.bodyText1?.apply(color: textColor)),
       trailing:endIcon? Container(

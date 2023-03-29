@@ -1,4 +1,5 @@
 import 'package:doc_hub/homepages/Main_Layout.dart';
+import 'package:doc_hub/homepages/config.dart';
 import 'package:doc_hub/login/phone.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -85,7 +86,7 @@ class _DocterPageState extends State<DocterPage> {
                 Text(
                   'Hello ! Doctor',
                   style: TextStyle(
-                    color: Colors.indigo[900],
+                    color: Config.primaryColor.shade700,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -153,7 +154,7 @@ class _DocterPageState extends State<DocterPage> {
                       child: const Text(
                         'Click Here',
                         style: TextStyle(
-                          color: Colors.blue,
+                          color: Config.primaryColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

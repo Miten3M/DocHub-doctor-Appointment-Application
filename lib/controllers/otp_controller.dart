@@ -14,4 +14,7 @@ class OTPController extends GetxController{
     isVerified? Get.offAll(() => MainLayout()) : Get.back();
     print("Controller verified");
   }
+  void registerUser(String email,String password)async{
+    await  AuthenticationRepository.instance.createUserWithEmailAndPassword(email, password);
+  }
 }

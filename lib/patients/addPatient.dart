@@ -36,7 +36,7 @@ class _AddPatientState extends State<AddPatient> {
 
     return Scaffold(
       appBar: CustomAppBar(
-        appTitle: 'Doctor Details',
+        appTitle: 'Add Patient Details',
         icon: const FaIcon(Icons.arrow_back_ios),
       ),
       // appBar: AppBar(
