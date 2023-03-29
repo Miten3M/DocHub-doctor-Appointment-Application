@@ -37,10 +37,12 @@ class AppointmentRepository extends GetxController {
 
   Future<List<AppointmentCardModel>> getAppointment(String? email)async{
     print("appointmentRepo");
-    final snapshot1 = await _db.collection("User")
-        .where("email", isEqualTo:email )
+    print(email);
+    final snapshot1 = await _db.collection("Users")
+        .where("Email", isEqualTo:email )
         .get();
-    final userData=snapshot1.docs.map((e) => UserModel.fromSnapshot(e)).single;
+    print(snapshot1.docs.length);
+   final userData=snapshot1.docs.map((e) => UserModel.fromSnapshot(e)).single;
     print(userData.email);
     final snapshot=await _db.collection("Users").doc(userData.id).collection("Patient").get();
     final patientData=snapshot.docs.map((e) => PatientModel.fromSnapshot(e)).toList();
@@ -51,11 +53,13 @@ class AppointmentRepository extends GetxController {
       final appointData1=snapshot3.docs.map((e) => AppointmentModel.fromSnapshot(e)).toList();
       appointData.addAll(appointData1);
     }
+    print(appointData.length);
 
     //return appointData;
     final snapshot3=await _db.collection("Doctor").get();
 
-    final docData=snapshot.docs.map((e) => DoctorModel.fromSnapshot(e)).toList();
+    final docData=snapshot3.docs.map((e) => DoctorModel.fromSnapshot(e)).toList();
+
     // return docData;
     List<AppointmentCardModel>? combinedList = appointData.map((AppointmentModel) {
       var matchingModel2 = docData.where((DoctorModel) => DoctorModel.id == AppointmentModel.doc_id).toList();
