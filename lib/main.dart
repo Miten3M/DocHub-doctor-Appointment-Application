@@ -32,6 +32,8 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/main', page: () => MainLayout()),
         GetPage(name: '/doc_details', page: () => const DoctorDetails()),
+
+
         GetPage(
             name: '/booking_page',
             page: () =>BookingPage(),

@@ -1,5 +1,3 @@
-
-
 import 'package:doc_hub/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';

@@ -13,11 +13,11 @@ class PatientRepository extends  GetxController{
   {
     print(uid);
     await _db.collection("Users").doc(uid!).collection("Patient").add(patient.toJson()).whenComplete(
-          () => Get.snackbar("Succcess", "You account has been created.",
+          () async=> await _db.collection("Patient").add(patient.toJson()).whenComplete(()=>Get.snackbar("Succcess", "You account has been created.",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green.withOpacity(0.1),
           colorText: Colors.green),
-
+          )
     )
         .catchError((error,stackTrace){
       Get.snackbar("Error", "Something went wrong.Try again",

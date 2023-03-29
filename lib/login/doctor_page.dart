@@ -1,3 +1,4 @@
+import 'package:doc_hub/homepages/Main_Layout.dart';
 import 'package:doc_hub/login/phone.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -129,7 +130,7 @@ class _DocterPageState extends State<DocterPage> {
                 // sign in button
                 MyButton(
                   text: "Sign In",
-                  onTap: signUserIn,
+                  onTap:()=>Get.to(MainLayout()),
                 ),
 
                 const SizedBox(height: 30),

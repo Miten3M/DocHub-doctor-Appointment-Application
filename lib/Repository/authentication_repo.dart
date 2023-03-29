@@ -6,7 +6,7 @@ import 'package:doc_hub/login/verify.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
-class AuthenticationRepository extends GetxController {
+class AuthenticationRepository extends GetxController{
   static AuthenticationRepository get instance => Get.find();
 
   final _auth = FirebaseAuth.instance;
@@ -59,7 +59,7 @@ class AuthenticationRepository extends GetxController {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      firebaseUser.value != null ? Get.offAll(() => MyVerify()) : Get.to(() =>
+      firebaseUser.value != null ? Get.offAll(() =>  MyVerify()) : Get.to(() =>
           MyPhone());
       print(email);
     }

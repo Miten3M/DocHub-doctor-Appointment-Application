@@ -10,10 +10,10 @@ class ProfileController extends GetxController{
 
   final _authRepo=Get.put(AuthenticationRepository());
   final _userRepo=Get.put(UserRepository());
-  FirebaseAuth auth = FirebaseAuth.instance;
-  getUserData(){
+  // FirebaseAuth auth = FirebaseAuth.instance;
+  getUserData() async {
     // print("User email fetch");
-    final email=_authRepo.firebaseUser.value?.email;
+    final email = await _authRepo.firebaseUser.value?.email;
     print(email);
     if(email!=null)
       {

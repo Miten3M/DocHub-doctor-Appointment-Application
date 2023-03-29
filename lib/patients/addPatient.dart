@@ -185,10 +185,12 @@ class _AddPatientState extends State<AddPatient> {
                           text: "Add Patient",
                           onTap: () {
                             final patient = PatientModel(
+                                userid:'${userData.id}',
                                 patientName: controller.PName.text.trim(),
                                 age: calculateAge(birthdate).toString(),
                                 gender: _gender.toString(),
-                                pNumber: controller.PNumber.text.trim());
+                                pNumber: controller.PNumber.text.trim(),
+                              );
 
                             patientRepo.addPatient(patient, userData.id);
                             Get.to(() => Patient());
