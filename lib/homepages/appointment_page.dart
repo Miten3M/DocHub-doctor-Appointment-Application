@@ -15,10 +15,7 @@ class AppointmentPage extends StatefulWidget {
   State<AppointmentPage> createState() => _AppointmentPageState();
 }
 
-
-
 class _AppointmentPageState extends State<AppointmentPage> {
-
   Alignment _alignment = Alignment.centerLeft;
   int currentIndex = 0;
   int _lightIsOn = 0;
@@ -27,21 +24,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
   Widget build(BuildContext context) {
     final controller = Get.put(AppointmentController());
     List<AppointmentCardModel> completed = [], upcoming = [], cancelled = [];
-    //Future<List<DoctorModel>> schedules= controller.getAllAppointment();
-    // List<dynamic> filteredSchedules = schedules.where((AppointmentCardModel schedule){
-    //   switch(schedule.status){
-    //     case 'upcoming':
-    //       schedule.status=FilterStatus.upcoming;
-    //       break;
-    //     case 'complete':
-    //       schedule.status=FilterStatus.complete;
-    //       break;
-    //     case 'cancel':
-    //       schedule.status=FilterStatus.cancel;
-    //       break;
-    //   }
-    //   return schedule.status == status;
-    // }).toList();
+
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
@@ -90,7 +73,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                 onTap: () {
                                   setState(() {
                                     currentIndex = 0;
-                                    _lightIsOn =0;
+                                    _lightIsOn = 0;
                                   });
                                 },
                                 child: AnimatedAlign(
@@ -100,14 +83,18 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                     width: 100,
                                     height: 40,
                                     decoration: BoxDecoration(
-                                      color:_lightIsOn==0?Colors.teal:Colors.transparent,
+                                      color: _lightIsOn == 0
+                                          ? Colors.teal
+                                          : Colors.transparent,
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: Center(
                                       child: Text(
                                         "Upcoming",
-                                        style:  TextStyle(
-                                          color: _lightIsOn==0?Colors.white:Colors.teal,
+                                        style: TextStyle(
+                                          color: _lightIsOn == 0
+                                              ? Colors.white
+                                              : Colors.teal,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
@@ -129,14 +116,18 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                     width: 100,
                                     height: 40,
                                     decoration: BoxDecoration(
-                                      color: _lightIsOn==1?Colors.teal:Colors.transparent,
+                                      color: _lightIsOn == 1
+                                          ? Colors.teal
+                                          : Colors.transparent,
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: Center(
                                       child: Text(
                                         "Completed",
-                                        style:  TextStyle(
-                                          color: _lightIsOn==1?Colors.white:Colors.teal,
+                                        style: TextStyle(
+                                          color: _lightIsOn == 1
+                                              ? Colors.white
+                                              : Colors.teal,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
@@ -149,7 +140,6 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                   setState(() {
                                     currentIndex = 2;
                                     _lightIsOn = 2;
-
                                   });
                                 },
                                 child: AnimatedAlign(
@@ -159,14 +149,18 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                     width: 100,
                                     height: 40,
                                     decoration: BoxDecoration(
-                                      color: _lightIsOn==2?Colors.teal:Colors.transparent,
+                                      color: _lightIsOn == 2
+                                          ? Colors.teal
+                                          : Colors.transparent,
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: Center(
                                       child: Text(
                                         "Cancel",
                                         style: TextStyle(
-                                          color: _lightIsOn==2?Colors.white:Colors.teal,
+                                          color: _lightIsOn == 2
+                                              ? Colors.white
+                                              : Colors.teal,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
@@ -182,7 +176,11 @@ class _AppointmentPageState extends State<AppointmentPage> {
                     Config.spaceSmall,
                     Expanded(
                       child: ListView.builder(
-                        itemCount: currentIndex==0?upcoming.length:currentIndex==1?completed.length:cancelled.length,
+                        itemCount: currentIndex == 0
+                            ? upcoming.length
+                            : currentIndex == 1
+                                ? completed.length
+                                : cancelled.length,
                         itemBuilder: ((context, index) {
                           // AppointmentCardModel schedule=snapshot.data![index];
                           bool isLastElement =
@@ -194,7 +192,6 @@ class _AppointmentPageState extends State<AppointmentPage> {
                               ),
                               borderRadius: BorderRadius.circular(20),
                             ),
-
                             child: Padding(
                               padding: const EdgeInsets.all(15),
                               child: Column(
@@ -204,17 +201,29 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                     children: [
                                       CircleAvatar(
                                         backgroundImage: AssetImage(
-                                            currentIndex==0 ? upcoming[index].doc_profile : currentIndex==1 ? completed[index].doc_profile : cancelled[index].doc_profile),
+                                            currentIndex == 0
+                                                ? upcoming[index].doc_profile
+                                                : currentIndex == 1
+                                                    ? completed[index]
+                                                        .doc_profile
+                                                    : cancelled[index]
+                                                        .doc_profile),
                                       ),
                                       const SizedBox(
                                         width: 10,
                                       ),
                                       Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            currentIndex==0 ? upcoming[index].doctor_name : currentIndex==1 ? completed[index].doctor_name: cancelled[index].doctor_name,
+                                            currentIndex == 0
+                                                ? upcoming[index].doctor_name
+                                                : currentIndex == 1
+                                                    ? completed[index]
+                                                        .doctor_name
+                                                    : cancelled[index]
+                                                        .doctor_name,
                                             style: const TextStyle(
                                               color: Colors.black,
                                               fontWeight: FontWeight.w700,
@@ -224,7 +233,11 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                             height: 5,
                                           ),
                                           Text(
-                                            currentIndex==0 ? upcoming[index].category : currentIndex==1 ? completed[index].category : cancelled[index].category,
+                                            currentIndex == 0
+                                                ? upcoming[index].category
+                                                : currentIndex == 1
+                                                    ? completed[index].category
+                                                    : cancelled[index].category,
                                             style: const TextStyle(
                                               color: Colors.grey,
                                               fontSize: 12,
@@ -239,29 +252,145 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                     height: 15,
                                   ),
                                   ScheduleCard(
-                                      date: currentIndex==0 ? upcoming[index].date : currentIndex==1 ? completed[index].date : cancelled[index].date,
-                                      day: currentIndex==0 ? upcoming[index].day : currentIndex==1 ? completed[index].day : cancelled[index].day,
-                                      time: currentIndex==0 ? upcoming[index].time : currentIndex==1 ? completed[index].time : cancelled[index].time),
+                                      date: currentIndex == 0
+                                          ? upcoming[index].date
+                                          : currentIndex == 1
+                                              ? completed[index].date
+                                              : cancelled[index].date,
+                                      day: currentIndex == 0
+                                          ? upcoming[index].day
+                                          : currentIndex == 1
+                                              ? completed[index].day
+                                              : cancelled[index].day,
+                                      time: currentIndex == 0
+                                          ? upcoming[index].time
+                                          : currentIndex == 1
+                                              ? completed[index].time
+                                              : cancelled[index].time),
                                   const SizedBox(
                                     height: 15,
                                   ),
                                   Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Expanded(
                                         child: OutlinedButton(
-                                          onPressed: () {AppointmentModel appoint=AppointmentModel(
-                                              p_id: currentIndex==0 ? upcoming[index].p_id : currentIndex==1 ? completed[index].p_id : cancelled[index].p_id,
-                                              doc_id:currentIndex==0 ? upcoming[index].doc_id : currentIndex==1 ? completed[index].doc_id : cancelled[index].doc_id ,
-                                              date: currentIndex==0 ? upcoming[index].date : currentIndex==1 ? completed[index].date : cancelled[index].date,
-                                              day: currentIndex==0 ? upcoming[index].day : currentIndex==1 ? completed[index].day : cancelled[index].day,
-                                              time: currentIndex==0 ? upcoming[index].time : currentIndex==1 ? completed[index].time : cancelled[index].time,
-                                              status:"cancelled");
-                                              controller.cancelAppointment(appoint,currentIndex==0 ? upcoming[index].appoint_id: currentIndex==1 ? completed[index].appoint_id : cancelled[index].appoint_id , currentIndex==0 ? upcoming[index].p_id : currentIndex==1 ? completed[index].p_id : cancelled[index].p_id);
-                                              setState(() {
+                                          onPressed: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: Text('Confirmation'),
+                                                  content: Text(
+                                                      'Are you sure you want to cancel?'),
+                                                  actions: <Widget>[
+                                                    TextButton(
+                                                      child: Text('Yes'),
+                                                      onPressed: () {
+                                                        AppointmentModel
+                                                            appoint =
+                                                            AppointmentModel(
+                                                                p_id: currentIndex ==
+                                                                        0
+                                                                    ? upcoming[index]
+                                                                        .p_id
+                                                                    : currentIndex ==
+                                                                            1
+                                                                        ? completed[index]
+                                                                            .p_id
+                                                                        : cancelled[index]
+                                                                            .p_id,
+                                                                doc_id: currentIndex ==
+                                                                        0
+                                                                    ? upcoming[index]
+                                                                        .doc_id
+                                                                    : currentIndex ==
+                                                                            1
+                                                                        ? completed[index]
+                                                                            .doc_id
+                                                                        : cancelled[index]
+                                                                            .doc_id,
+                                                                date: currentIndex ==
+                                                                        0
+                                                                    ? upcoming[index]
+                                                                        .date
+                                                                    : currentIndex ==
+                                                                            1
+                                                                        ? completed[index]
+                                                                            .date
+                                                                        : cancelled[index]
+                                                                            .date,
+                                                                day: currentIndex ==
+                                                                        0
+                                                                    ? upcoming[
+                                                                            index]
+                                                                        .day
+                                                                    : currentIndex ==
+                                                                            1
+                                                                        ? completed[index]
+                                                                            .day
+                                                                        : cancelled[index]
+                                                                            .day,
+                                                                time: currentIndex ==
+                                                                        0
+                                                                    ? upcoming[
+                                                                            index]
+                                                                        .time
+                                                                    : currentIndex ==
+                                                                            1
+                                                                        ? completed[index]
+                                                                            .time
+                                                                        : cancelled[index]
+                                                                            .time,
+                                                                status:
+                                                                    "cancelled");
+                                                        controller
+                                                            .updateAppointment(
+                                                                appoint,
+                                                                currentIndex ==
+                                                                        0
+                                                                    ? upcoming[
+                                                                            index]
+                                                                        .appoint_id
+                                                                    : currentIndex ==
+                                                                            1
+                                                                        ? completed[index]
+                                                                            .appoint_id
+                                                                        : cancelled[index]
+                                                                            .appoint_id,
+                                                                currentIndex ==
+                                                                        0
+                                                                    ? upcoming[
+                                                                            index]
+                                                                        .p_id
+                                                                    : currentIndex ==
+                                                                            1
+                                                                        ? completed[index]
+                                                                            .p_id
+                                                                        : cancelled[index]
+                                                                            .p_id);
+                                                        // Handle confirm action
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      setState(() {
 
-                                              });},
+                                                      });
+                                                        },
+
+                                                    ),
+                                                    TextButton(
+                                                      child: Text('No'),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          },
                                           child: const Text(
                                             'Cancel',
                                             style: TextStyle(
@@ -276,14 +405,26 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                         child: OutlinedButton(
                                           style: OutlinedButton.styleFrom(
                                             backgroundColor:
-                                            Config.primaryColor,
+                                                Config.primaryColor,
                                           ),
                                           onPressed: () {
-                                            Get.to(BookingPage(),arguments: {"p_id":currentIndex==0 ? upcoming[index].p_id : currentIndex==1 ? completed[index].p_id : cancelled[index].p_id,"doc_id":currentIndex==0 ? upcoming[index].doc_id : currentIndex==1 ? completed[index].doc_id : cancelled[index].doc_id});},
+                                            Get.to(BookingPage(), arguments: {
+                                              "p_id": currentIndex == 0
+                                                  ? upcoming[index].p_id
+                                                  : currentIndex == 1
+                                                      ? completed[index].p_id
+                                                      : cancelled[index].p_id,
+                                              "doc_id": currentIndex == 0
+                                                  ? upcoming[index].doc_id
+                                                  : currentIndex == 1
+                                                      ? completed[index].doc_id
+                                                      : cancelled[index].doc_id
+                                            });
+                                          },
                                           child: const Text(
                                             'Reschedule',
                                             style:
-                                            TextStyle(color: Colors.white),
+                                                TextStyle(color: Colors.white),
                                           ),
                                         ),
                                       ),
@@ -344,7 +485,7 @@ class ScheduleCard extends StatelessWidget {
             width: 5,
           ),
           Text(
-            "$day  $date",
+            "$day, $date",
             style: TextStyle(color: Config.primaryColor.shade300),
           ),
           SizedBox(

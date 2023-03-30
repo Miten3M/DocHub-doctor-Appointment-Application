@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Config.spaceMedium,
                         const Text(
-                          'Category',
+                          '   Category',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -125,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Config.spaceSmall,
                         const Text(
-                          'Appointment Today',
+                          '   Appointment Today',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -135,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                         Appointmentcard(),
                         Config.spaceSmall,
                         const Text(
-                          'Top Doctors',
+                          '   List of Doctors',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,

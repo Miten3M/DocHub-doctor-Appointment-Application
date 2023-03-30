@@ -2,7 +2,7 @@ import 'package:doc_hub/Repository/authentication_repo.dart';
 import 'package:doc_hub/homepages/Main_Layout.dart';
 import 'package:doc_hub/homepages/booking_page.dart';
 import 'package:doc_hub/homepages/doctor_details.dart';
-
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:doc_hub/login/phone.dart';
 import 'package:doc_hub/widges/themes.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +26,13 @@ class MyApp extends StatelessWidget {
       theme: MyTheme.lightTheme(context),
       debugShowCheckedModeBanner: false,
       // darkTheme: MyTheme.darkTheme(context),
-      home: const MyPhone(),
+      home: AnimatedSplashScreen(
+          splash: 'assets/pageimages/DOCHUB1.png',
+          duration: 10000,
+          splashIconSize: 1000,
+          splashTransition: SplashTransition.fadeTransition,
+          nextScreen: MyPhone()
+      ),
       // initialRoute: '/',
       // debugShowCheckedModeBanner: false,
       getPages: [

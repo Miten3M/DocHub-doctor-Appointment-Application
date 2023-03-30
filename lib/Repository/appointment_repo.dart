@@ -101,6 +101,8 @@ class AppointmentRepository extends GetxController {
       await _db.collection("Users").doc(userData.id).collection("Patient").doc(p).collection("Appointment").doc(appoint_id).update(appoint.toJson());
     }
   }
+
+
   // void cancelAppointment(String email, String? s, String? p) async{
   //   final snapshot1=await _db.collection("Users").where("Email",isEqualTo: email).get();
   //   final userData=snapshot1.docs.map((e) => UserModel.fromSnapshot(e)).single;

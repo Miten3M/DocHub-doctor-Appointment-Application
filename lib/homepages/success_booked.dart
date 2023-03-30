@@ -1,5 +1,7 @@
+import 'package:doc_hub/homepages/Main_Layout.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:get/get.dart';
 
 class AppointmentBooked extends StatelessWidget {
   const AppointmentBooked({Key? key}) : super(key: key);
@@ -36,7 +38,7 @@ class AppointmentBooked extends StatelessWidget {
                 ),
                 //width: double.infinity,
                 child: Text( 'Back to Home Page'),
-                onPressed: () => Navigator.of(context).pushNamed('main'),
+                onPressed: () => Get.offAll(() => MainLayout()),
               ),
               // child: Button(
               //   width: double.infinity,
